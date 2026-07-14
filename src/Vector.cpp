@@ -1,4 +1,70 @@
 #include "Vector.h"
+
+bool Vector::operator!=(const Vector& other) const
+{
+    return !operator==(other);
+}
+
+bool Vector:: operator==(const Vector& other) const
+{
+	if (size != other.size)
+	{
+		return false;
+	}
+    for (unsigned int i = 0; i < size; i++)
+    {
+        if (dynamicArray[i] != other.dynamicArray[i])
+        {
+            return false;
+        }
+    }
+    return true;
+
+}
+/*Назва оператора однакова, параметр index однаковий.
+Вибір між версіями тут відбувається через константність самого об'єкта.*/
+const int& Vector:: operator[](unsigned int index) const
+{
+	return dynamicArray[index];
+}
+
+/*замінюємо використання set() на перевантажений operator[], 
+щоб навчитися задавати поведінку[] для власного класу Vector.*/
+int& Vector::operator[](unsigned int index)
+{
+    return dynamicArray[index];
+}
+
+Vector& Vector::operator=(const Vector& other)
+{
+    if (this == &other)         //Перевіряє: чи не присвоюємо об'єкт самому собі
+    {
+        return *this;
+    }
+    
+        delete[] dynamicArray;      // Звільняє старий dynamicArray поточного об'єкта
+        this->size = other.size;        // Копіює size з other у поточний об'єкт
+        this->dynamicArray = new int[size];
+
+        for (unsigned int i = 0; i < size; i++)
+        {
+            this->dynamicArray[i] = other.dynamicArray[i];
+        }
+        return *this;
+}
+
+Vector::Vector(const Vector& other)
+{
+   
+    size = other.size;
+    dynamicArray = new int[size];
+
+    for (unsigned int i = 0; i < size; i++)
+    {
+        dynamicArray[i] = other.dynamicArray[i];
+    }
+       
+}
 Vector::Vector(unsigned int sizeOfArray)
 
 {
@@ -9,6 +75,9 @@ Vector::Vector(unsigned int sizeOfArray)
     {
         dynamicArray[i] = 0;
     }
+
+   
+
 }
 Vector::~Vector()
 {
