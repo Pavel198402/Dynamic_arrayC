@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Vector.h"
+#include <stdexcept>
 
 int main()
 {
@@ -64,8 +65,37 @@ int main()
     }
     std::cout << "show choose:" << std::endl;
     std::cout << constCopy[2] << std::endl;
-   
+        
+		// тестування викидання виключення при зверненні до елементу за межами масиву
+    try
+    {
+        std::cout << numbers[20] << std::endl;
+    }
+    catch (const std::out_of_range& error)
+    {
+        std::cout << error.what() << std::endl;
+    }
     
+	// тестування викидання виключення при зверненні до елементу за межами масиву
+
+    try
+    {
+        std::cout << numbers.get(20) << std::endl;
+    }
+    catch (const std::out_of_range& error)
+    {
+        std::cout << error.what() << std::endl;
+    }
+	// тестування викидання виключення при зверненні до елементу за межами масиву set()
+
+    try
+    {
+        numbers.set(20, 100);
+    }
+    catch (const std::out_of_range& error)
+    {
+        std::cout << error.what() << std::endl;
+    }
     return 0;
     
 }

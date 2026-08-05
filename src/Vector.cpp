@@ -1,4 +1,5 @@
 #include "Vector.h"
+#include <stdexcept>
 
 bool Vector::operator!=(const Vector& other) const
 {
@@ -22,16 +23,36 @@ bool Vector:: operator==(const Vector& other) const
 
 }
 /*Назва оператора однакова, параметр index однаковий.
-Вибір між версіями тут відбувається через константність самого об'єкта.*/
+Вибір між версіями тут відбувається через константність самого об'єкта.
 const int& Vector:: operator[](unsigned int index) const
 {
 	return dynamicArray[index];
 }
+*/
+const int& Vector::operator[](unsigned int index) const
+{
+    if (index >= size)
+    {
+        throw std::out_of_range("operator[]: index is out of range");
+    }
+
+    return dynamicArray[index];
+}
 
 /*замінюємо використання set() на перевантажений operator[], 
-щоб навчитися задавати поведінку[] для власного класу Vector.*/
+щоб навчитися задавати поведінку[] для власного класу Vector.
 int& Vector::operator[](unsigned int index)
 {
+    return dynamicArray[index];
+}
+*/
+int& Vector::operator[](unsigned int index)
+{
+    if (index >= size)
+    {
+        throw std::out_of_range("operator[]: index is out of range");
+    }
+
     return dynamicArray[index];
 }
 
@@ -113,18 +134,29 @@ void Vector::set(unsigned int index, int newValue)
 {
         if (index >= size)
         {
-            return;
+            throw std::out_of_range("set(): index is out of range");
         }
 
         dynamicArray[index] = newValue;
 }
 
 
- int Vector::get(unsigned int index) const
+/* int Vector::get(unsigned int index) const
 {
     if (index >= size)
     {
         return 0;
+    }
+
+    return dynamicArray[index];
+}
+*/
+
+int Vector::get(unsigned int index) const
+{
+    if (index >= size)
+    {
+        throw std::out_of_range("get(): index is out of range");
     }
 
     return dynamicArray[index];
