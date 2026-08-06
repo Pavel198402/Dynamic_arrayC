@@ -161,6 +161,15 @@ int Vector::get(unsigned int index) const
 
     return dynamicArray[index];
 }
+
+Vector::Vector()
+{
+}
+
+Vector::operator bool() const
+{
+    return size != 0;
+}
 unsigned int Vector::getSize() const
 {
     return size;

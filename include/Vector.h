@@ -8,6 +8,8 @@ private:
     int* dynamicArray = nullptr;
 
 public:
+    explicit operator bool() const;
+    Vector();
     bool operator==(const Vector& other) const;
     bool operator!=(const Vector& other) const;
 	int& operator[](unsigned int index); // не константна версія оператора []

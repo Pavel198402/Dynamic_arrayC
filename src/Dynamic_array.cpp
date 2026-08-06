@@ -96,6 +96,26 @@ int main()
     {
         std::cout << error.what() << std::endl;
     }
+
+	// тестування 
+    Vector empty;
+
+    if (empty)
+    {
+        std::cout << "Not empty\n";
+    }
+    else
+    {
+        std::cout << "Empty\n";
+    }
+
+    Vector numbers2(5);
+
+    if (numbers2)
+    {
+        std::cout << "Not empty\n";
+    }
+   
     return 0;
     
 }
