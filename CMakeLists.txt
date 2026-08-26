@@ -10,4 +10,4 @@ add_executable(Dynamic_arrayC
     src/Dynamic_array.cpp
 	src/Vector.cpp
 
-)
+ "include/StaticArray.h")
