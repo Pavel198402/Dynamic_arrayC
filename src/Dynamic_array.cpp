@@ -4,10 +4,10 @@
 #include <iostream>
 #include "Vector.h"
 #include <stdexcept>
-
+#include "StaticArray.h"
 int main()
 {
-    Vector numbers(5);
+    Vector<int> numbers(5);
     
     numbers[0] = 16;
     numbers[1] = 02;    // numbers.set(1, 02);
@@ -15,8 +15,8 @@ int main()
     numbers[3] = 84;    // numbers.set(3, 84);
     numbers[4] = 42;        // numbers.set(4, 42);
     
-    Vector copy(numbers);
-    const Vector constCopy(numbers);
+    Vector<int> copy(numbers);
+    const Vector<int> constCopy(numbers);
                                             // constCopy[2] = 100;
     std::cout << "Old array:" << std::endl;
 
@@ -98,7 +98,7 @@ int main()
     }
 
 	// тестування 
-    Vector empty;
+    Vector<int> empty;
 
     if (empty)
     {
@@ -109,13 +109,76 @@ int main()
         std::cout << "Empty\n";
     }
 
-    Vector numbers2(5);
+    Vector<int> numbers2(5);
 
     if (numbers2)
     {
         std::cout << "Not empty\n";
     }
-   
+   /*TEST WITH double*/
+    Vector<double> doubleNumbers(3);
+
+    doubleNumbers[0] = 1.5;
+    doubleNumbers[1] = 2.75;
+    doubleNumbers[2] = 3.14;
+
+    std::cout << "Vector<double>:" << std::endl;
+
+    for (unsigned int i = 0; i < doubleNumbers.getSize(); i++)
+    {
+        std::cout << doubleNumbers[i] << std::endl;
+    }
+	/*TEST WITH StaticArray*/
+    StaticArray<int, 5> staticNumbers;
+
+    staticNumbers[0] = 10;
+    staticNumbers[1] = 20;
+    staticNumbers[2] = 30;
+    staticNumbers[3] = 40;
+    staticNumbers[4] = 50;
+    std::cout << "StaticArray<int, 5>:" << std::endl;
+
+    for (std::size_t i = 0; i < staticNumbers.getSize(); i++)
+    {
+        std::cout << staticNumbers[i] << std::endl;
+    }
+	// Testing set() method
+    staticNumbers.set(2, 300);
+
+    std::cout << "After set():" << std::endl;
+    std::cout << staticNumbers.get(2) << std::endl;
+    //
+    try
+    {
+        std::cout << staticNumbers[10] << std::endl;
+    }
+    catch (const std::out_of_range& error)
+    {
+        std::cout << error.what() << std::endl;
+    }
+
+    StaticArray<int, 5> staticCopy;
+
+    staticCopy[0] = 10;
+    staticCopy[1] = 20;
+    staticCopy[2] = 300;
+    staticCopy[3] = 40;
+    staticCopy[4] = 50;
+	
+    if (staticNumbers == staticCopy)
+    {
+        std::cout << "Static arrays are equal" << std::endl;
+    }
+    else
+    {
+        std::cout << "Static arrays are not equal" << std::endl;
+    }
+
+    staticCopy[0] = 100;       //для тестування розкоментувати    -----  staticCopy[0] = 100;
+    if (staticNumbers != staticCopy)
+    {
+        std::cout << "Static arrays are not equal" << std::endl;
+    }
     return 0;
     
 }
