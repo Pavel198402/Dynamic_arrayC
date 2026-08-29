@@ -5,6 +5,8 @@
 #include "Vector.h"
 #include <stdexcept>
 #include "StaticArray.h"
+#include "Sort.h"
+
 int main()
 {
     Vector<int> numbers(5);
@@ -208,13 +210,15 @@ int main()
         std::cout << pushTest[i] << std::endl;
     }
     std::cout << "Vector with operator<<: " << pushTest << std::endl;
-
+/*
     Vector<int> inputTest(3);
 
     std::cout << "Enter 3 values: ";
     std::cin >> inputTest;
 
     std::cout << "You entered: " << inputTest << std::endl;
+*/
+
     //перевірка  що конструктор копіювання переносить не тільки size, а й capacity.
     Vector<int> pushCopy(pushTest);
 
@@ -222,6 +226,48 @@ int main()
         << ", capacity = " << pushCopy.getCapacity() << std::endl;
 
     std::cout << "Copy vector: " << pushCopy << std::endl;
+
+	// Testing insertion_sort  
+    Vector<int> sortTest;
+
+    sortTest.push_back(50);
+    sortTest.push_back(10);
+    sortTest.push_back(40);
+    sortTest.push_back(20);
+    sortTest.push_back(30);
+
+    std::cout << "Before sort: " << sortTest << std::endl;
+
+    insertion_sort(sortTest);
+
+    std::cout << "After sort: " << sortTest << std::endl;
+	// Testing insertion_sort with double
+    Vector<double> sortDouble;
+
+    sortDouble.push_back(3.14);
+    sortDouble.push_back(1.5);
+    sortDouble.push_back(2.75);
+
+    std::cout << "Before double sort: " << sortDouble << std::endl;
+
+    insertion_sort(sortDouble);
+
+    std::cout << "After double sort: " << sortDouble << std::endl;
+    std::cout << "testing bubble_sort " << std::endl;
+	//testing bubble_sort
+    Vector<int> bubbleTest;
+
+    bubbleTest.push_back(11);
+    bubbleTest.push_back(10);
+    bubbleTest.push_back(40);
+    bubbleTest.push_back(60);
+    bubbleTest.push_back(35);
+
+    std::cout << "Before bubble sort: " << bubbleTest << std::endl;
+
+    bubble_sort(bubbleTest);
+
+    std::cout << "After bubble sort: " << bubbleTest << std::endl;
     return 0;
     
 }
