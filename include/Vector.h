@@ -1,10 +1,12 @@
 #pragma once
+#include <iostream>
 template <typename T>
 class Vector
 {
 private:
     
     unsigned int size = 0;
+    unsigned int capacity = 0;
     T* dynamicArray = nullptr;
 
 public:
@@ -22,12 +24,19 @@ public:
     ~Vector();
 
     void resize(unsigned int newSize);
+    void resize();
+    void push_back(T value);
 
     void set(unsigned int index, T newValue);
 
     T get(unsigned int index) const;
 
     unsigned int getSize() const;
+    unsigned int getCapacity() const;
+    template <typename U>
+    friend std::ostream& operator<<(std::ostream& out, const Vector<U>& vector);
+    template <typename U>
+    friend std::istream& operator>>(std::istream& in, Vector<U>& vector);
 };
 
 template <typename T>
@@ -76,19 +85,22 @@ T& Vector<T>::operator[](unsigned int index)
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& other)
 {
-    if (this == &other)         //Перевіряє: чи не присвоюємо об'єкт самому собі
+    if (this == &other)
     {
         return *this;
     }
 
-    delete[] dynamicArray;      // Звільняє старий dynamicArray поточного об'єкта
-    this->size = other.size;        // Копіює size з other у поточний об'єкт
-    this->dynamicArray = new T[size];
+    delete[] dynamicArray;
+
+    this->size = other.size;
+    this->capacity = other.capacity;
+    this->dynamicArray = new T[capacity];
 
     for (unsigned int i = 0; i < size; i++)
     {
         this->dynamicArray[i] = other.dynamicArray[i];
     }
+
     return *this;
 }
 
@@ -97,7 +109,8 @@ Vector<T>::Vector(const Vector<T>& other)
 {
 
     size = other.size;
-    dynamicArray = new T[size];
+    capacity = other.capacity;
+    dynamicArray = new T[capacity];
 
     for (unsigned int i = 0; i < size; i++)
     {
@@ -110,7 +123,8 @@ Vector<T>::Vector(unsigned int sizeOfArray)
 {
 
     size = sizeOfArray;
-    dynamicArray = new T[size];
+    capacity = sizeOfArray;
+    dynamicArray = new T[capacity];
 
     for (unsigned int i = 0; i < size; i++)
     {
@@ -125,6 +139,7 @@ Vector<T>::~Vector()
 {
     delete[] dynamicArray;
 }
+
 template <typename T>
 void Vector<T>::resize(unsigned int newSize)
 {
@@ -148,8 +163,28 @@ void Vector<T>::resize(unsigned int newSize)
     }
 
     delete[] dynamicArray;
+
     dynamicArray = newArray;
     size = newSize;
+    capacity = newSize;
+}
+//цей resize() не змінює size. Він тільки збільшує запас пам'яті.
+template <typename T>
+void Vector<T>::resize()
+{
+    unsigned int newCapacity = (capacity == 0) ? 1 : capacity * 2;
+
+    T* newArray = new T[newCapacity];
+
+    for (unsigned int i = 0; i < size; i++)
+    {
+        newArray[i] = dynamicArray[i];
+    }
+
+    delete[] dynamicArray;
+
+    dynamicArray = newArray;
+    capacity = newCapacity;
 }
 template <typename T>
 void Vector<T>::set(unsigned int index, T newValue)
@@ -187,4 +222,44 @@ template <typename T>
 unsigned int Vector<T>::getSize() const
 {
     return size;
+}
+// збільшенням розміру вектора, якщо він досягне своєї ємності, і додаванням нового елемента в кінець вектора.
+template <typename T>
+void Vector<T>::push_back(T value)
+{
+    if (size == capacity)
+    {
+        resize();
+    }
+
+    dynamicArray[size] = value;
+    ++size;
+}
+// отримання ємності вектора
+template <typename T>
+unsigned int Vector<T>::getCapacity() const
+{
+    return capacity;
+}
+// перевантаження оператора виводу для класу Vector
+template <typename U>
+std::ostream& operator<<(std::ostream& out, const Vector<U>& vector)
+{
+    for (unsigned int i = 0; i < vector.size; i++)
+    {
+        out << vector.dynamicArray[i] << ' ';
+    }
+
+    return out;
+}
+// перевантаження оператора вводу для класу Vector
+template <typename U>
+std::istream& operator>>(std::istream& in, Vector<U>& vector)
+{
+    for (unsigned int i = 0; i < vector.size; i++)
+    {
+        in >> vector.dynamicArray[i];
+    }
+
+    return in;
 }
