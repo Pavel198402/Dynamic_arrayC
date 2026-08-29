@@ -179,6 +179,49 @@ int main()
     {
         std::cout << "Static arrays are not equal" << std::endl;
     }
+	// тестування push_back()
+    Vector<int> pushTest;
+    pushTest.push_back(10);
+    std::cout << "size = " << pushTest.getSize()
+        << ", capacity = " << pushTest.getCapacity() << std::endl;
+
+    pushTest.push_back(20);
+    std::cout << "size = " << pushTest.getSize()
+        << ", capacity = " << pushTest.getCapacity() << std::endl;
+
+    pushTest.push_back(30);
+    std::cout << "size = " << pushTest.getSize()
+        << ", capacity = " << pushTest.getCapacity() << std::endl;
+
+    pushTest.push_back(40);
+    std::cout << "size = " << pushTest.getSize()
+        << ", capacity = " << pushTest.getCapacity() << std::endl;
+
+    pushTest.push_back(50);
+    std::cout << "size = " << pushTest.getSize()
+        << ", capacity = " << pushTest.getCapacity() << std::endl;
+
+    std::cout << "push_back test:" << std::endl;
+
+    for (unsigned int i = 0; i < pushTest.getSize(); i++)
+    {
+        std::cout << pushTest[i] << std::endl;
+    }
+    std::cout << "Vector with operator<<: " << pushTest << std::endl;
+
+    Vector<int> inputTest(3);
+
+    std::cout << "Enter 3 values: ";
+    std::cin >> inputTest;
+
+    std::cout << "You entered: " << inputTest << std::endl;
+    //перевірка  що конструктор копіювання переносить не тільки size, а й capacity.
+    Vector<int> pushCopy(pushTest);
+
+    std::cout << "Copy size = " << pushCopy.getSize()
+        << ", capacity = " << pushCopy.getCapacity() << std::endl;
+
+    std::cout << "Copy vector: " << pushCopy << std::endl;
     return 0;
     
 }
