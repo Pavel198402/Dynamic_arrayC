@@ -253,6 +253,21 @@ int main()
     insertion_sort(sortDouble);
 
     std::cout << "After double sort: " << sortDouble << std::endl;
+    std::cout << "testing bubble_sort " << std::endl;
+	//testing bubble_sort
+    Vector<int> bubbleTest;
+
+    bubbleTest.push_back(11);
+    bubbleTest.push_back(10);
+    bubbleTest.push_back(40);
+    bubbleTest.push_back(60);
+    bubbleTest.push_back(35);
+
+    std::cout << "Before bubble sort: " << bubbleTest << std::endl;
+
+    bubble_sort(bubbleTest);
+
+    std::cout << "After bubble sort: " << bubbleTest << std::endl;
     return 0;
     
 }

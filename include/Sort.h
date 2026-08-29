@@ -17,3 +17,19 @@ void insertion_sort(Vector<T>& arr)
         arr[j] = value;
     }
 }
+template <typename T>
+void bubble_sort(Vector<T>& arr)
+{
+    for (unsigned int i = 0; i < arr.getSize(); ++i)
+    {
+        for (unsigned int j = 0; j + 1 < arr.getSize() - i; ++j)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                T temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
