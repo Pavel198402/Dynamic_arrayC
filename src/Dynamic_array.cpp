@@ -268,7 +268,79 @@ int main()
     bubble_sort(bubbleTest);
 
     std::cout << "After bubble sort: " << bubbleTest << std::endl;
+    // iterator test
+    Vector<int> iteratorTest;
+
+    iteratorTest.push_back(10);
+    iteratorTest.push_back(20);
+    iteratorTest.push_back(30);
+    iteratorTest.push_back(40);
+    iteratorTest.push_back(50);
+
+    std::cout << "Iterator test:" << std::endl;
+
+    auto it = iteratorTest.begin();
+
+    std::cout << "*it = " << *it << std::endl;
+
+    ++it;
+    std::cout << "++it = " << *it << std::endl;
+
+    it++;
+    std::cout << "it++ = " << *it << std::endl;
+
+    --it;
+    std::cout << "--it = " << *it << std::endl;
+
+    it--;
+    std::cout << "it-- = " << *it << std::endl;
+
+    it += 3;
+    std::cout << "it += 3 = " << *it << std::endl;
+
+    it -= 2;
+    std::cout << "it -= 2 = " << *it << std::endl;
+
+    auto it2 = it + 2;
+    std::cout << "it + 2 = " << *it2 << std::endl;
+
+    auto it3 = it2 - 1;
+    std::cout << "it2 - 1 = " << *it3 << std::endl;
+
+    std::cout << "it[2] = " << it[2] << std::endl;
+
+    std::cout << "Distance = "
+        << iteratorTest.end() - iteratorTest.begin()
+        << std::endl;
+
+    if (iteratorTest.begin() == iteratorTest.begin())
+    {
+        std::cout << "operator== works" << std::endl;
+    }
+
+    if (iteratorTest.begin() != iteratorTest.end())
+    {
+        std::cout << "operator!= works" << std::endl;
+    }
+
+    std::cout << "Range for:" << std::endl;
+
+    for (int value : iteratorTest)
+    {
+        std::cout << value << std::endl;
+    }
+    auto first = iteratorTest.begin();
+    auto last = iteratorTest.end();
+
+    std::cout << "Iterator comparison test:" << std::endl;
+
+    std::cout << (first < last) << std::endl;
+    std::cout << (last > first) << std::endl;
+    std::cout << (first <= last) << std::endl;
+    std::cout << (last >= first) << std::endl;
     return 0;
+	
+
     
 }
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

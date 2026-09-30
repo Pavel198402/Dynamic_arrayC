@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <cstddef>
+#include <iterator>
 template <typename T>
 class Vector
 {
@@ -10,6 +12,117 @@ private:
     T* dynamicArray = nullptr;
 
 public:
+    class Iterator
+    {
+    private:
+        T* ptr;
+
+    public:
+        using iterator_category = std::random_access_iterator_tag;
+        using value_type = T;
+        using difference_type = std::ptrdiff_t;
+        using pointer = T*;
+        using reference = T&;
+        Iterator(T* pointer = nullptr)
+            : ptr(pointer)
+        {
+        }
+
+        T& operator*() const
+        {
+            return *ptr;
+        }
+        T* operator->() const
+        {
+            return ptr;
+        }
+
+        Iterator& operator++()
+        {
+            ++ptr;
+            return *this;
+        }
+        Iterator operator++(int)
+        {
+            Iterator temp = *this;
+            ++ptr;
+            return temp;
+        }
+        Iterator& operator--()
+        {
+            --ptr;
+            return *this;
+        }
+        Iterator operator--(int)
+        {
+            Iterator temp = *this;
+            --ptr;
+            return temp;
+        }
+        Iterator& operator+=(difference_type n)
+        {
+            ptr += n;
+            return *this;
+        }
+        Iterator& operator-=(difference_type n)
+        {
+            ptr -= n;
+            return *this;
+        }
+        Iterator operator+(difference_type n) const
+        {
+            return Iterator(ptr + n);
+        }
+        Iterator operator-(difference_type n) const
+        {
+            return Iterator(ptr - n);
+        }
+        difference_type operator-(const Iterator& other) const
+        {
+            return ptr - other.ptr;
+        }
+        T& operator[](difference_type n) const
+        {
+            return ptr[n];
+        }
+        bool operator==(const Iterator& other) const
+        {
+            return ptr == other.ptr;
+        }
+
+        bool operator!=(const Iterator& other) const
+        {
+            return ptr != other.ptr;
+        }
+        bool operator<(const Iterator& other) const
+        {
+            return ptr < other.ptr;
+        }
+
+        bool operator>(const Iterator& other) const
+        {
+            return ptr > other.ptr;
+        }
+
+        bool operator<=(const Iterator& other) const
+        {
+            return ptr <= other.ptr;
+        }
+
+        bool operator>=(const Iterator& other) const
+        {
+            return ptr >= other.ptr;
+        }
+    };
+    Iterator begin()
+    {
+        return Iterator(dynamicArray);
+    }
+
+    Iterator end()
+    {
+        return Iterator(dynamicArray + size);
+    }
     explicit operator bool() const;
     Vector();
     bool operator==(const Vector& other) const;
